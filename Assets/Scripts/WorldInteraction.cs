@@ -5,10 +5,14 @@ using UnityEngine.AI;
 
 public class WorldInteraction : MonoBehaviour {
     NavMeshAgent playerAgent;
+	private Animator anim;
+	public GameObject PlayerChild;
 
      void Start()
     {
         playerAgent = GetComponent<NavMeshAgent>();
+		anim = PlayerChild.GetComponent<Animator> ();
+
     }
 
     void Update()
@@ -16,7 +20,10 @@ public class WorldInteraction : MonoBehaviour {
         if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
             GetInteraction();
+
+
         }
+
     }
 
     void GetInteraction()
@@ -26,6 +33,10 @@ public class WorldInteraction : MonoBehaviour {
         if(Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
         {
             GameObject interactedObject = interactionInfo.collider.gameObject; 
+			anim.Play ("Walk");
+			Debug.Log ("Raycast" + interactionInfo.point);
+			Debug.Log ("Player" + playerAgent.destination);
+
             if(interactedObject.tag == "Interactable Object")
             {
                 Debug.Log("Interactable interacted");
@@ -33,6 +44,7 @@ public class WorldInteraction : MonoBehaviour {
             else
             {
                 playerAgent.destination = interactionInfo.point;
+				anim.Play ("Idle");
             }
         }
     }
