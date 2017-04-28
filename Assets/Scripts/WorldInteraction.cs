@@ -8,11 +8,18 @@ public class WorldInteraction : MonoBehaviour {
 	private Animator anim;
 	public GameObject PlayerChild;
 
+	private Rigidbody rBody;
+
+	private float velocity;
+	private Vector3 previous;
+
      void Start()
     {
         playerAgent = GetComponent<NavMeshAgent>();
 		anim = PlayerChild.GetComponent<Animator> ();
 
+		rBody = this.GetComponent<Rigidbody> ();
+		Debug.Log ("Hej");
     }
 
     void Update()
@@ -23,6 +30,22 @@ public class WorldInteraction : MonoBehaviour {
 
 
         }
+		velocity = ((transform.position - previous).magnitude) / Time.deltaTime;
+		previous = transform.position;
+
+		Debug.Log (velocity);
+
+		if (velocity == 0) {
+			Debug.Log ("STOP");
+			anim.SetBool ("Walking", false);
+
+		}
+		if (velocity != 0) {
+			Debug.Log ("GO");
+			anim.SetBool ("Walking", true);
+
+		}
+
 
     }
 
@@ -33,18 +56,21 @@ public class WorldInteraction : MonoBehaviour {
         if(Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
         {
             GameObject interactedObject = interactionInfo.collider.gameObject; 
-			anim.Play ("Walk");
+			//anim.SetBool ("Walking", true);
 			Debug.Log ("Raycast" + interactionInfo.point);
 			Debug.Log ("Player" + playerAgent.destination);
-
+			Debug.Log (interactedObject.name);
             if(interactedObject.tag == "Interactable Object")
             {
                 Debug.Log("Interactable interacted");
             }
+			if(interactedObject.tag == "NPC")
+			{
+				interactedObject.GetComponent<Npc_Dialog> ().ShowWindow ();
+			}
             else
             {
                 playerAgent.destination = interactionInfo.point;
-				anim.Play ("Idle");
             }
         }
     }
