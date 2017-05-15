@@ -8,6 +8,9 @@ public class WorldInteraction : MonoBehaviour {
 	private Animator anim;
 	public GameObject PlayerChild;
 
+	public GameObject gameController;
+	private Controller controller;
+
 	private Rigidbody rBody;
 
 	private float velocity;
@@ -15,6 +18,9 @@ public class WorldInteraction : MonoBehaviour {
 
      void Start()
     {
+
+		controller = gameController.GetComponent<Controller> ();
+
         playerAgent = GetComponent<NavMeshAgent>();
 		anim = PlayerChild.GetComponent<Animator> ();
 
@@ -33,15 +39,15 @@ public class WorldInteraction : MonoBehaviour {
 		velocity = ((transform.position - previous).magnitude) / Time.deltaTime;
 		previous = transform.position;
 
-		Debug.Log (velocity);
+		//Debug.Log (velocity);
 
 		if (velocity == 0) {
-			Debug.Log ("STOP");
+			//Debug.Log ("STOP");
 			anim.SetBool ("Walking", false);
 
 		}
 		if (velocity != 0) {
-			Debug.Log ("GO");
+			//Debug.Log ("GO");
 			anim.SetBool ("Walking", true);
 
 		}
@@ -67,6 +73,11 @@ public class WorldInteraction : MonoBehaviour {
 			if(interactedObject.tag == "NPC")
 			{
 				interactedObject.GetComponent<Npc_Dialog> ().ShowWindow ();
+			}
+			else if(interactedObject.tag == "Carpenter")
+			{
+				Debug.Log ("HER ER NOGET TRÆ");
+				controller.woodAmount = 1;
 			}
             else
             {

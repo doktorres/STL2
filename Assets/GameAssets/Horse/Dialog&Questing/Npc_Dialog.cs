@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Npc_Dialog : MonoBehaviour {
+	public GameObject gameController;
+	private Controller controller;
+
 	public string[] Introduction;
 	public string Introduction_Answer;
 	public string[] Questions;
@@ -11,24 +14,25 @@ public class Npc_Dialog : MonoBehaviour {
 	public string[] Closing_Statement;
 	public string Closing_Statement_Answer;
 
+
 	private bool DisplayDialog = false;
 	private bool ActivateQuest = false;
 	private bool FirstTime = true;
 
 	public GameObject Player;
 	private WorldInteraction movement;
-	public int numberOfQuests;
 
-	public int coinAmount = 0;
 
 	private int goalAmount = 100;
 	private bool goal = false;
+	public int NPC_ID;
 
 
 
 	// Use this for initialization
 	void Start () {
 		movement = Player.GetComponent<WorldInteraction> ();
+		controller = gameController.GetComponent<Controller> ();
 	}
 
 	public void HideWindow (){
@@ -84,7 +88,7 @@ public class Npc_Dialog : MonoBehaviour {
 		}
 		if (DisplayDialog && ActivateQuest && !goal) {
 
-			GUILayout.Label (Questions [0]);
+			GUILayout.Label (Questions [1]);
 
 			if (GUILayout.Button (Questions_Answers [2])) {
 
@@ -101,6 +105,12 @@ public class Npc_Dialog : MonoBehaviour {
 			}
 			if (GUILayout.Button (Closing_Statement_Answer)) {
 
+				controller.questNPC = NPC_ID;
+				if (NPC_ID == 2) {
+				
+					controller.coinAmount += 100;
+				
+				}
 				HideWindow ();
 
 			}
@@ -113,15 +123,22 @@ public class Npc_Dialog : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (coinAmount >= goalAmount) {
+		switch (NPC_ID) {
+			case(1):
+			if (controller.coinAmount >= goalAmount) {
+					
+					goal = true;
+					
+				}
+			break;
+			case(2):
+			Debug.Log (this.name);
+			if (controller.woodAmount == 1) {
+					
+					goal = true;
 
-			goal = true;
-
+				}
+			break;
 		}
-	}
-	void OnMouseDown(){
-	
-		Debug.Log ("hello");
-	
 	}
 }
