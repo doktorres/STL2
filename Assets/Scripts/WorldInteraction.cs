@@ -53,25 +53,30 @@ public class WorldInteraction : MonoBehaviour {
     {
         Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit interactionInfo;
-        if(Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
-        {
-            GameObject interactedObject = interactionInfo.collider.gameObject; 
+		if(Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
+		{
+			GameObject interactedObject = interactionInfo.collider.gameObject; 
 			//anim.SetBool ("Walking", true);
 			Debug.Log ("Raycast" + interactionInfo.point);
 			Debug.Log ("Player" + playerAgent.destination);
 			Debug.Log (interactedObject.name);
-            if(interactedObject.tag == "Interactable Object")
-            {
-                Debug.Log("Interactable interacted");
-            }
+			if(interactedObject.tag == "Interactable Object")
+			{
+				Debug.Log("Interactable interacted");
+			}
 			if(interactedObject.tag == "NPC")
 			{
 				interactedObject.GetComponent<Npc_Dialog> ().ShowWindow ();
 			}
-            else
-            {
-                playerAgent.destination = interactionInfo.point;
-            }
+			else if(interactedObject.tag == "Carpenter")
+			{
+				Debug.Log ("HER ER NOGET TRÆ");
+				controller.woodAmount = 1;
+			}
+			else
+			{
+				playerAgent.destination = interactionInfo.point;
+			}
         }
     }
 }
