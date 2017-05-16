@@ -24,7 +24,7 @@ public class WorldInteraction : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(1) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
             GetInteraction();
 
