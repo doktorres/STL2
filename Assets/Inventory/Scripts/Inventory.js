@@ -30,7 +30,16 @@ function AddItem(Item:Transform)
 	var newContents = new Array(Contents);
 	newContents.Add(Item);
 	Contents=newContents.ToBuiltin(Transform); //Array to unity builtin array
-	
+
+	if(Item.name == "1_coin"){
+
+
+
+		var controller = GameObject.Find("GameController").GetComponent(Controller).IncrementCoinAmount();
+
+
+	}
+
 	if (DebugMode)
 	{
 		Debug.Log(Item.name+" has been added to inventroy");

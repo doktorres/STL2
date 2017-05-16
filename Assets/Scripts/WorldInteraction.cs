@@ -8,6 +8,9 @@ public class WorldInteraction : MonoBehaviour {
 	private Animator anim;
 	public GameObject PlayerChild;
 
+	public GameObject gameController;
+	private Controller controller;
+
 	private Rigidbody rBody;
 
 	private float velocity;
@@ -18,8 +21,9 @@ public class WorldInteraction : MonoBehaviour {
         playerAgent = GetComponent<NavMeshAgent>();
 		anim = PlayerChild.GetComponent<Animator> ();
 
+		controller = gameController.GetComponent<Controller> ();
+
 		rBody = this.GetComponent<Rigidbody> ();
-		Debug.Log ("Hej");
     }
 
     void Update()
@@ -33,15 +37,15 @@ public class WorldInteraction : MonoBehaviour {
 		velocity = ((transform.position - previous).magnitude) / Time.deltaTime;
 		previous = transform.position;
 
-		Debug.Log (velocity);
+//		Debug.Log (velocity);
 
 		if (velocity == 0) {
-			Debug.Log ("STOP");
+			//Debug.Log ("STOP");
 			anim.SetBool ("Walking", false);
 
 		}
 		if (velocity != 0) {
-			Debug.Log ("GO");
+			//Debug.Log ("GO");
 			anim.SetBool ("Walking", true);
 
 		}
@@ -68,11 +72,11 @@ public class WorldInteraction : MonoBehaviour {
 			{
 				interactedObject.GetComponent<Npc_Dialog> ().ShowWindow ();
 			}
-			else if(interactedObject.tag == "Carpenter")
+			if(interactedObject.tag == "Skovhugger")
 			{
-				Debug.Log ("HER ER NOGET TRÆ");
-				controller.woodAmount = 1;
+				interactedObject.GetComponent<Npc_task> ().ShowWindow ();
 			}
+		
 			else
 			{
 				playerAgent.destination = interactionInfo.point;
