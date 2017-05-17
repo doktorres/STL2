@@ -67,7 +67,11 @@ function PickUpItem ()
 	if(canGet){//if its getable or hasnt been gotten.
 	
 	playersinv.gameObject.SendMessage ("PlayPickUpSound", SendMessageOptions.DontRequireReceiver); //Play sound
+		if(this	.name == "1_coin"){
 	
+			var controller = GameObject.Find("GameController").GetComponent(Controller).IncrementCoinAmount();
+
+		}
 		if(stackable){
 			var locatedit:Item;
 			for(var t:Transform in playersinv.Contents){

@@ -31,14 +31,7 @@ function AddItem(Item:Transform)
 	newContents.Add(Item);
 	Contents=newContents.ToBuiltin(Transform); //Array to unity builtin array
 
-	if(Item.name == "1_coin"){
 
-
-
-		var controller = GameObject.Find("GameController").GetComponent(Controller).IncrementCoinAmount();
-
-
-	}
 
 	if (DebugMode)
 	{

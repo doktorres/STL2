@@ -138,6 +138,7 @@ public class Npc_Dialog : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		//Debug.Log (controller.coinAmount);	
 		switch (NPC_ID) {
 		case(1):
 			if (controller.coinAmount >= goalAmount) {

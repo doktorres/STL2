@@ -18,9 +18,9 @@ public class Controller : MonoBehaviour {
 	}
 
 	public int IncrementCoinAmount(){
-	
+		Debug.Log (coinAmount);
 		coinAmount += 1;
-		return 1;
+		return coinAmount;
 	}
 
 	// Update is called once per frame
