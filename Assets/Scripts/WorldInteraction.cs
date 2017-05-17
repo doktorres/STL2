@@ -16,6 +16,8 @@ public class WorldInteraction : MonoBehaviour {
 	private float velocity;
 	private Vector3 previous;
 
+	public GameObject mark;
+
      void Start()
     {
         playerAgent = GetComponent<NavMeshAgent>();
@@ -25,6 +27,18 @@ public class WorldInteraction : MonoBehaviour {
 
 		rBody = this.GetComponent<Rigidbody> ();
     }
+
+	IEnumerator Mark(RaycastHit ray)
+	{
+		Debug.Log ("VENTER");
+		mark.SetActive (true);
+		mark.transform.position = ray.point;
+
+		yield return new WaitForSeconds(1);
+		Debug.Log ("HAR VENTET");
+		mark.SetActive(false);
+		//Do Function here...
+	}
 
     void Update()
     {
@@ -57,13 +71,11 @@ public class WorldInteraction : MonoBehaviour {
     {
         Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit interactionInfo;
-		if(Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
+		if(Physics.Raycast(interactionRay, out interactionInfo, 35f))
 		{
 			GameObject interactedObject = interactionInfo.collider.gameObject; 
-			//anim.SetBool ("Walking", true);
-			Debug.Log ("Raycast" + interactionInfo.point);
-			Debug.Log ("Player" + playerAgent.destination);
-			Debug.Log (interactedObject.name);
+
+
 			if(interactedObject.tag == "Interactable Object")
 			{
 				Debug.Log("Interactable interacted");
@@ -79,8 +91,17 @@ public class WorldInteraction : MonoBehaviour {
 		
 			else
 			{
+				StartCoroutine (Mark (interactionInfo));
+
 				playerAgent.destination = interactionInfo.point;
+				// move the sphere to the clicked position
+
+
+
 			}
         }
     }
+
+
 }
+	
