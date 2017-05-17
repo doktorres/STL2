@@ -14,7 +14,7 @@ public class Npc_task : MonoBehaviour {
 	public string[] Closing_Statement;
 	public string Closing_Statement_Answer;
 
-	private string str = "Svar her";
+	private string str = "";
 
 	private bool DisplayDialog = false;
 	private bool ActivateQuest = false;
@@ -80,6 +80,7 @@ public class Npc_task : MonoBehaviour {
 			GUILayout.Label (Questions [1]);
 
 			str = GUILayout.TextField (str , 25);
+
 
 
 			if (GUILayout.Button (Questions_Answers[0])) {
