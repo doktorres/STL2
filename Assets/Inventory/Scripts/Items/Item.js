@@ -71,6 +71,7 @@ function PickUpItem ()
 	
 			var controller = GameObject.Find("GameController").GetComponent(Controller).IncrementCoinAmount();
 
+
 		}
 		if(stackable){
 			var locatedit:Item;

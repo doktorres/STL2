@@ -56,7 +56,7 @@ public class Npc_Dialog : MonoBehaviour {
 
 	void OnGUI()
 	{
-		GUILayout.BeginArea(new Rect(700, 600, 400, 400));
+		GUILayout.BeginArea(new Rect(700, 400, 400, 400));
 
 		if (DisplayDialog && !ActivateQuest && FirstTime) {
 
