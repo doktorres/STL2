@@ -30,6 +30,8 @@ public class Npc_task : MonoBehaviour {
 
 	public GameObject coins;	
 	public GameObject wood;
+	public GameObject axe;
+	public GameObject helmet;
 
 	// Use this for initialization
 	void Start () {
@@ -144,6 +146,9 @@ public class Npc_task : MonoBehaviour {
 				goal = true;
 
 			}
+			break;
+		case(3):
+
 			break;
 
 		}

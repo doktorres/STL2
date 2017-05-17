@@ -21,7 +21,8 @@ public class Npc_Dialog : MonoBehaviour {
 
 	public GameObject Player;
 	private WorldInteraction movement;
-
+	public GameObject axe;
+	public GameObject helmet;
 
 	private int goalAmount = 20;
 	private bool goal = false;
@@ -86,6 +87,11 @@ public class Npc_Dialog : MonoBehaviour {
 					wood.SetActive (true);
 					controller.woodAmount = 1;
 				}
+				if (this.NPC_ID == 4) {
+					axe.SetActive (true);
+					helmet.SetActive (true);
+					Debug.Log ("weap active");
+				}
 				HideWindow ();
 
 			}
@@ -94,6 +100,7 @@ public class Npc_Dialog : MonoBehaviour {
 					wood.SetActive (true);
 					controller.woodAmount = 1;
 				}
+
 				HideWindow ();
 
 			}
